@@ -4,16 +4,14 @@ import argparse
 # 定数
 G = 0.5
 
-parser = argparse.ArgumentParser(description="")
 
-# parser.add_argument('', default="", type=int, help="")
-# parser.add_argument('', action="store_true", help="")
-parser.add_argument('-m', '--mario', action="store_true", help="")
-parser.add_argument('-l', '--luigi', action="store_true", help="")
-parser.add_argument('-j', '--jump', action="store_true", help="")
-
-args = parser.parse_args()
-state = {k: v for k, v in args._get_kwargs()}
+def get_args():
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument('-m', '--mario', action="store_true", help="")
+    parser.add_argument('-l', '--luigi', action="store_true", help="")
+    parser.add_argument('-j', '--jump', action="store_true", help="")
+    args = parser.parse_args()
+    return args
 
 
 pose = [
@@ -244,7 +242,9 @@ def func_jump(mario=True, luigi=False):
             print()
             exit()
 
-if args.jump:
-    func_jump(mario=args.mario, luigi=args.luigi)
-else:
-    func_walk(mario=args.mario, luigi=args.luigi)
+if __name__ == "__main__":
+    args = get_args()
+    if args.jump:
+        func_jump(mario=args.mario, luigi=args.luigi)
+    else:
+        func_walk(mario=args.mario, luigi=args.luigi)
